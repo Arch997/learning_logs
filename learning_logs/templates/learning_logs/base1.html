@@ -1,0 +1,67 @@
+{% load bootstrap4 %}
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<head >
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width initial-scale=1 shrink-to-fit=no">
+
+	{% bootstrap_css %}
+	{% bootstrap_javascript jquery='full' %}
+
+	<!--{# Display django.contrib.messages as bootstrap alerts #}-->
+	{% bootstrap_messages %}
+
+	<link rel="stylesheet" href="{% static 'CSS/styles.css' %}">
+</head>
+
+<title>Learning Log</title>
+
+<body>
+	<!-- Static navbar-->
+	<nav class="navbar navbar-expand-md navbar-light bg-light border">
+		<div class="container">
+			<div class="nav-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+				</button>
+				<a class="navbar-brand" href="{% url 'learning_logs:index' %}"><span class="blue">Learning</span>
+					<span class="red"></span>Log</a>
+			</div>
+
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="{% url 'learning_logs:topics' %}">Topics</a>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					{% if user.is_authenticated %}
+					<li><a>Hello, {{ user.username }}</a></li>
+					<li><a href="{% url 'users:logout' %}"></a></li>
+					{% else %}
+					<li><a href="{% url 'users:login' %}">Log in</a></li>
+					<li><a href="{% url 'users:register' %}">Register</a></li>
+					{% endif %}
+				</ul>
+			</div><!--/.navbar colllapsed-->
+
+		</div>
+	</nav>
+
+
+	<div class="container">
+		<div class="page-header">
+			{% block header %}{% endblock %}
+		</div>
+		<div>
+			{% block main %}{% endblock %}
+		</div>
+	</div>
+	
+
+</body>
+
+

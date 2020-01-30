@@ -1,0 +1,43 @@
+{% extends "learning_logs/base1.html" %}
+
+{% block title %}
+	Topic
+{% endblock %}
+
+{% block main %}
+	<h6>Topic: <span class="badge badge-secondary">{{ topic }}</span></h6>
+	<h6> 
+		<a href="{% url 'learning_logs:new_entry' topic_id %}">Add new entry for topic</a> 
+	</h6>
+	<div class="accordion" id="accordionEntries">
+		<div class="card">
+			<div class="card-header" id="{{ entry.date_added }}">
+				<h2 class="mb-0">	
+					<button class="btn btn-link" type="button" data-toggle="collapse"
+				data-target="#{{ entry }}" aria-expanded="true" aria-controls="{{ entry }}">
+						Entries
+					</button>	
+				</h2>
+			</div>
+			<div id="{{ entry }}" class="collapse show" aria-labelledby="{{ entry.date_added }}"
+			data-parent="#accordionEntries">
+				<div class="card-body">
+					<ul>
+						{% for entry in entries %}
+					<li>
+						{{ entry.date_added | date: 'M d, Y H:i' }}
+						{{ entry.text | linebreaks }}
+						<footer class="small text-centered text-muted">
+							<a href="{% url 'learning_logs:edit_entry' entry_id %}">Edit this entry</a>
+						</footer>
+					</li>			
+						{% empty %}
+				 		 <li>There are no entries for this topic yet</li>
+						{% endfor %}
+					</ul>	
+				</div>
+			</div>	
+		</div>
+	</div>
+
+{% endblock %}

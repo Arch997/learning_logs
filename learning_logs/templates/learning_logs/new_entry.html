@@ -1,0 +1,40 @@
+{% extends "base1.html" %}
+{% load bootstrap4 %}
+
+{% block title %}
+	New Entry
+{% endblock %}
+
+{% block header %}
+	<div class="jumbotron">
+		<h3>
+			Enter new logs for your topics here!
+		</h3>
+	</div>	
+{% endblock %}
+
+<div>
+	<p>
+		<a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
+	</p>
+</div>
+{% block main %}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3>New entry</h3>
+	</div>
+	<div class="panel-body">
+		<form action="{% url 'learning_logs:new_entry' topic.id %}" method="post" class="form">
+		<div class="form-group">
+			{% csrf_token %}
+			{% bootstrap_form form %}
+			{% buttons}
+			<button class="btn btn-primary" name="submit">Add entry</button>
+			{% endbuttons %}
+			<input type="hidden" name="next" value="{% url 'learning_logs:topic' %}">
+		</div>			
+		</form>
+	</div>
+	
+</div>
+{% endblock %}

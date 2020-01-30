@@ -1,0 +1,32 @@
+{% extends 'learning_logs/base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}
+	Register
+{% endblock %}
+
+{% block header %}
+	<div class="jumbotron">
+		<h1 class="display-4">
+			Sign up for Learning Log!
+		</h1>
+		<p class="lead">
+			Don't forget what you learned last week. 
+		</p>
+		<hr class="my-4">
+		<p>Track your learning.</p>
+		 <a class="btn btn-primary btn-lg" id="register_form" href="#register" role="button">
+			 Try it out!
+		 </a>
+	</div>
+	
+{% endblock %}
+
+{% block main %}
+	<form method="post" action="{% url 'users:register' %}" class="form" id="register">
+		{% csrf_token %}
+		{% bootstrap_form form %}
+		<button type="submit" class="btn btn-primary">Register</button>
+		<input type="hidden" name="next" value="{% url 'learning_logs:index' %}">
+	</form>
+{% endblock %}
